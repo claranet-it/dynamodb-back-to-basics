@@ -12,6 +12,13 @@
 - [x] pytest
 - [x] ruff
 
+## Use Cases
+
+- [x] Get details of an E-Bike and related Bookings​
+- [ ] Get Bookings for a specific User
+- [ ] Retrieve all available E-Bikes​
+- [ ] Get details of a specific Booking​
+
 ## Install 
 
 ```

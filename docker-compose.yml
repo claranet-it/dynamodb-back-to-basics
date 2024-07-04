@@ -13,7 +13,24 @@ services:
         ]
       interval: 10s
       timeout: 10s
+      retries: 10    
+
+  dynamodb-test:
+    image: amazon/dynamodb-local:2.5.2
+    container_name: dynamodb-test
+    ports:
+      - "9000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          '[ "$(curl -s -o /dev/null -I -w ''%{http_code}'' http://localhost:8000)" == "400" ]',
+        ]
+      interval: 10s
+      timeout: 10s
       retries: 10
+    profiles:
+      - test
 
   dynamodb-admin:
     image: aaronshaf/dynamodb-admin
@@ -22,7 +39,7 @@ services:
       - "8001:8001"
     environment:
       DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
-      AWS_REGION: "us-west-2"
+      AWS_REGION: "eu-west-1"
       AWS_ACCESS_KEY_ID: local
       AWS_SECRET_ACCESS_KEY: local
     depends_on:
@@ -34,7 +51,7 @@ services:
     volumes:
       - "./.dynamodb:/tmp/dynamo"
     environment:
-      AWS_REGION: "us-west-2"
+      AWS_REGION: "eu-west-1"
       AWS_ACCESS_KEY_ID: local
       AWS_SECRET_ACCESS_KEY: local
     depends_on:
@@ -44,5 +61,23 @@ services:
     working_dir: /tmp/dynamo
     entrypoint:
       - bash
-    command: '-c "/tmp/dynamo/init-db.sh"'
+    command: '-c "/tmp/dynamo/init-db.sh http://dynamodb-local:8000"'
+
+  cli-init-tables-test:
+    image: amazon/aws-cli
+    container_name: cli-init-tables-test    
+    volumes:
+      - "./.dynamodb:/tmp/dynamo"
+    environment:
+      AWS_REGION: "eu-west-1"
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+    depends_on:
+      - dynamodb-test
+    profiles:
+      - test
+    working_dir: /tmp/dynamo
+    entrypoint:
+      - bash
+    command: '-c "/tmp/dynamo/init-db.sh http://dynamodb-test:8000"'
     

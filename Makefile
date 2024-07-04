@@ -1,4 +1,4 @@
-.PHONY: help up down init-db logs status admin-ui install start-local test coverage lint lint-fix format
+.PHONY: help up down init-db logs status admin-ui install start-local prepare-test test coverage lint lint-fix format
 
 run-docker-compose = docker compose -f docker-compose.yml
 server_port = 3000
@@ -28,20 +28,27 @@ admin-ui: # Open the UI in the browser
 
 install: # Install dependencies
 	poetry install
-	cp .env.example .env
+	cp .env.example .env.dev
 
 start-local: # Start the local server
 	poetry run uvicorn app.main:app --reload --port $(server_port)
 
-test: # Run tests
+prepare-test: # Prepare test environment
+	echo "***Preparing test environment..."
+	$(run-docker-compose) --profile test down --remove-orphans
+	$(run-docker-compose) --profile test up -d
+	sleep 10
+	echo "***Test environment ready!"
+
+test: prepare-test # Run tests	
 ifdef filter
-	poetry run pytest $(filter) -vv
+	ENV=test poetry run pytest $(filter) -vv
 else
-	poetry run pytest -vv
+	ENV=test poetry run pytest -vv
 endif
 
 coverage: test # Run tests with coverage
-	poetry run pytest --cov-report term-missing --cov=app
+	ENV=test poetry run pytest --cov-report term-missing --cov=app
 
 lint: # Run linter
 	poetry run ruff check .

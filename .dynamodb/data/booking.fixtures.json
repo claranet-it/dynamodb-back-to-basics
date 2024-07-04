@@ -4,7 +4,7 @@
             "PutRequest": {
                 "Item": {
                     "pk": {"S": "BIKE#001"},
-                    "sk": {"S": "METADATA#"},
+                    "sk": {"S": "BIKE#001"},
                     "entity": {"S": "BIKE"},
                     "gs1_pk": {"S": "AVAILABLE"},
                     "gs1_sk": {"S": "001"},
@@ -19,7 +19,7 @@
             "PutRequest": {
                 "Item": {
                     "pk": {"S": "BIKE#002"},
-                    "sk": {"S": "METADATA#"},
+                    "sk": {"S": "BIKE#002"},
                     "entity": {"S": "BIKE"},
                     "gs1_pk": {"S": "AVAILABLE"},
                     "gs1_sk": {"S": "002"},
@@ -34,7 +34,7 @@
             "PutRequest": {
                 "Item": {
                     "pk": {"S": "BIKE#003"},
-                    "sk": {"S": "METADATA#"},
+                    "sk": {"S": "BIKE#003"},
                     "entity": {"S": "BIKE"},
                     "gs1_pk": {"S": "AVAILABLE"},
                     "gs1_sk": {"S": "003"},
@@ -64,7 +64,7 @@
             "PutRequest": {
                 "Item": {
                     "pk": {"S": "USER#201"},
-                    "sk": {"S": "METADATA#"},
+                    "sk": {"S": "USER#201"},
                     "entity": {"S": "USER"},
                     "gs1_pk": {"S": "USER#201"},
                     "gs1_sk": {"S": "Freddie Mercury"},
@@ -78,7 +78,7 @@
             "PutRequest": {
                 "Item": {
                     "pk": {"S": "USER#202"},
-                    "sk": {"S": "METADATA#"},
+                    "sk": {"S": "USER#202"},
                     "entity": {"S": "USER"},
                     "gs1_pk": {"S": "USER#202"},
                     "gs1_sk": {"S": "David Bowie"},
@@ -92,7 +92,7 @@
             "PutRequest": {
                 "Item": {
                     "pk": {"S": "USER#203"},
-                    "sk": {"S": "METADATA#"},
+                    "sk": {"S": "USER#203"},
                     "entity": {"S": "USER"},
                     "gs1_pk": {"S": "USER#203"},
                     "gs1_sk": {"S": "Steven Tyler"},
@@ -106,7 +106,7 @@
             "PutRequest": {
                 "Item": {
                     "pk": {"S": "USER#204"},
-                    "sk": {"S": "METADATA#"},
+                    "sk": {"S": "USER#204"},
                     "entity": {"S": "USER"},
                     "gs1_pk": {"S": "USER#204"},
                     "gs1_sk": {"S": "Giovanni Bongiovanni"},

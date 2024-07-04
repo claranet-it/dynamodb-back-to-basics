@@ -29,11 +29,7 @@ out/
 
 # dotenv environment variable files
 .env
-.env.development.local
-.env.dev.local
-.env.test.local
-.env.production.local
-.env.local
+.env.dev
 
 # NodeJs
 node_modules/
