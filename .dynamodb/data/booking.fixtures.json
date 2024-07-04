@@ -1,0 +1,330 @@
+{
+    "booking": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#001"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "BIKE"},
+                    "gs1_pk": {"S": "AVAILABLE"},
+                    "gs1_sk": {"S": "001"},
+                    "id": {"S": "001"},
+                    "model": {"S": "DeLorean"},
+                    "status": {"S": "AVAILABLE"},
+                    "location": {"S": "Springfield"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#002"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "BIKE"},
+                    "gs1_pk": {"S": "AVAILABLE"},
+                    "gs1_sk": {"S": "002"},
+                    "id": {"S": "002"},
+                    "model": {"S": "Camaro"},
+                    "status": {"S": "AVAILABLE"},
+                    "location": {"S": "Gotham City"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#003"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "BIKE"},
+                    "gs1_pk": {"S": "AVAILABLE"},
+                    "gs1_sk": {"S": "003"},
+                    "id": {"S": "003"},
+                    "model": {"S": "Mustang"},
+                    "status": {"S": "AVAILABLE"},
+                    "location": {"S": "Metropolis"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#004"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "BIKE"},
+                    "gs1_pk": {"S": "AVAILABLE"},
+                    "gs1_sk": {"S": "004"},
+                    "id": {"S": "004"},
+                    "model": {"S": "Firebird"},
+                    "status": {"S": "AVAILABLE"},
+                    "location": {"S": "Bedrock"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "USER#201"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "USER"},
+                    "gs1_pk": {"S": "USER#201"},
+                    "gs1_sk": {"S": "Freddie Mercury"},
+                    "id": {"S": "201"},
+                    "fullname": {"S": "Freddie Mercury"},
+                    "email": {"S": "f.mercury@email.com"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "USER#202"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "USER"},
+                    "gs1_pk": {"S": "USER#202"},
+                    "gs1_sk": {"S": "David Bowie"},
+                    "id": {"S": "202"},
+                    "fullname": {"S": "David Bowie"},
+                    "email": {"S": "d.bowie@email.com"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "USER#203"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "USER"},
+                    "gs1_pk": {"S": "USER#203"},
+                    "gs1_sk": {"S": "Steven Tyler"},
+                    "id": {"S": "203"},
+                    "fullname": {"S": "Steven Tyler"},
+                    "email": {"S": "s.tyler@email.com"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "USER#204"},
+                    "sk": {"S": "METADATA#"},
+                    "entity": {"S": "USER"},
+                    "gs1_pk": {"S": "USER#204"},
+                    "gs1_sk": {"S": "Giovanni Bongiovanni"},
+                    "id": {"S": "204"},
+                    "fullname": {"S": "Giovanni Bongiovanni"},
+                    "email": {"S": "g.bongiovanni@email.com"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#001"},
+                    "sk": {"S": "BOOKING#001"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#201"},
+                    "gs1_sk": {"S": "BOOKING#001"},
+                    "id": {"S": "001"},
+                    "user_id": {"S": "201"},
+                    "bike_id": {"S": "001"},
+                    "booking_date": {"S": "2024-05-01"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#002"},
+                    "sk": {"S": "BOOKING#002"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#202"},
+                    "gs1_sk": {"S": "BOOKING#002"},
+                    "id": {"S": "002"},
+                    "user_id": {"S": "202"},
+                    "bike_id": {"S": "002"},
+                    "booking_date": {"S": "2024-05-05"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#003"},
+                    "sk": {"S": "BOOKING#003"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#203"},
+                    "gs1_sk": {"S": "BOOKING#003"},
+                    "id": {"S": "003"},
+                    "user_id": {"S": "203"},
+                    "bike_id": {"S": "003"},
+                    "booking_date": {"S": "2024-05-10"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#004"},
+                    "sk": {"S": "BOOKING#004"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#204"},
+                    "gs1_sk": {"S": "BOOKING#004"},
+                    "id": {"S": "004"},
+                    "user_id": {"S": "204"},
+                    "bike_id": {"S": "004"},
+                    "booking_date": {"S": "2024-05-15"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#001"},
+                    "sk": {"S": "BOOKING#005"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#202"},
+                    "gs1_sk": {"S": "BOOKING#005"},
+                    "id": {"S": "005"},
+                    "user_id": {"S": "202"},
+                    "bike_id": {"S": "001"},
+                    "booking_date": {"S": "2024-05-20"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#002"},
+                    "sk": {"S": "BOOKING#006"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#203"},
+                    "gs1_sk": {"S": "BOOKING#006"},
+                    "id": {"S": "006"},
+                    "user_id": {"S": "203"},
+                    "bike_id": {"S": "002"},
+                    "booking_date": {"S": "2024-05-25"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#003"},
+                    "sk": {"S": "BOOKING#007"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#204"},
+                    "gs1_sk": {"S": "BOOKING#007"},
+                    "id": {"S": "007"},
+                    "user_id": {"S": "204"},
+                    "bike_id": {"S": "003"},
+                    "booking_date": {"S": "2024-05-30"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#004"},
+                    "sk": {"S": "BOOKING#008"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#201"},
+                    "gs1_sk": {"S": "BOOKING#008"},
+                    "id": {"S": "008"},
+                    "user_id": {"S": "201"},
+                    "bike_id": {"S": "004"},
+                    "booking_date": {"S": "2024-06-01"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#001"},
+                    "sk": {"S": "BOOKING#009"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#203"},
+                    "gs1_sk": {"S": "BOOKING#009"},
+                    "id": {"S": "009"},
+                    "user_id": {"S": "203"},
+                    "bike_id": {"S": "001"},
+                    "booking_date": {"S": "2024-06-05"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#002"},
+                    "sk": {"S": "BOOKING#010"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#201"},
+                    "gs1_sk": {"S": "BOOKING#010"},
+                    "id": {"S": "010"},
+                    "user_id": {"S": "201"},
+                    "bike_id": {"S": "002"},
+                    "booking_date": {"S": "2024-06-10"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#003"},
+                    "sk": {"S": "BOOKING#011"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#202"},
+                    "gs1_sk": {"S": "BOOKING#011"},
+                    "id": {"S": "011"},
+                    "user_id": {"S": "202"},
+                    "bike_id": {"S": "003"},
+                    "booking_date": {"S": "2024-06-15"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#004"},
+                    "sk": {"S": "BOOKING#012"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#203"},
+                    "gs1_sk": {"S": "BOOKING#012"},
+                    "id": {"S": "012"},
+                    "user_id": {"S": "203"},
+                    "bike_id": {"S": "004"},
+                    "booking_date": {"S": "2024-06-20"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#001"},
+                    "sk": {"S": "BOOKING#013"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#204"},
+                    "gs1_sk": {"S": "BOOKING#013"},
+                    "id": {"S": "013"},
+                    "user_id": {"S": "204"},
+                    "bike_id": {"S": "001"},
+                    "booking_date": {"S": "2024-06-25"}
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "pk": {"S": "BIKE#002"},
+                    "sk": {"S": "BOOKING#014"},
+                    "entity": {"S": "BOOKING"},
+                    "gs1_pk": {"S": "USER#201"},
+                    "gs1_sk": {"S": "BOOKING#014"},
+                    "id": {"S": "014"},
+                    "user_id": {"S": "201"},
+                    "bike_id": {"S": "002"},
+                    "booking_date": {"S": "2024-06-30"}
+                }
+            }
+        }
+    ]
+}

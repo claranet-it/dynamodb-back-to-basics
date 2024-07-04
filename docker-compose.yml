@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  dynamodb-local:
+    image: amazon/dynamodb-local:2.5.2
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          '[ "$(curl -s -o /dev/null -I -w ''%{http_code}'' http://localhost:8000)" == "400" ]',
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    container_name: dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
+      AWS_REGION: "us-west-2"
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+    depends_on:
+      - dynamodb-local
+
+  cli-init-tables:
+    image: amazon/aws-cli
+    container_name: cli-init-tables    
+    volumes:
+      - "./.dynamodb:/tmp/dynamo"
+    environment:
+      AWS_REGION: "us-west-2"
+      AWS_ACCESS_KEY_ID: local
+      AWS_SECRET_ACCESS_KEY: local
+    depends_on:
+      - dynamodb-local
+    profiles:
+      - dev
+    working_dir: /tmp/dynamo
+    entrypoint:
+      - bash
+    command: '-c "/tmp/dynamo/init-db.sh"'
+    
