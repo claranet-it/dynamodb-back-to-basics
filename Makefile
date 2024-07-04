@@ -33,12 +33,9 @@ install: # Install dependencies
 start-local: # Start the local server
 	poetry run uvicorn app.main:app --reload --port $(server_port)
 
-prepare-test: # Prepare test environment
-	echo "***Preparing test environment..."
-	$(run-docker-compose) --profile test down --remove-orphans
+prepare-test: # Prepare test environment		
 	$(run-docker-compose) --profile test up -d
-	sleep 10
-	echo "***Test environment ready!"
+	sleep 5	
 
 test: prepare-test # Run tests	
 ifdef filter

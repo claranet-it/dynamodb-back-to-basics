@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
 
 from app.schemas.bike import Bike
-from app.schemas.common import SingleTableModel
+from app.schemas.common import PaginatedQuery, SingleTableModel
 
 
 class Booking(SingleTableModel):
@@ -27,3 +27,7 @@ class BookingsForBike(BaseModel):
 
 class GetBookingsForBikeQuery(BaseModel):
     bike_id: str
+
+
+class GetBookingsForUserQuery(PaginatedQuery):
+    user_id: str

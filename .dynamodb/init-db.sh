@@ -2,8 +2,13 @@
 
 DATA_DIR="./data"
 
+# delete tables
+for f in $DATA_DIR/*.delete-table.json; do 
+    aws dynamodb delete-table --endpoint-url $1 --cli-input-json file://"${f#./}";     
+done
+
 # Create tables
-for f in $DATA_DIR/*.table.json; do 
+for f in $DATA_DIR/*.create-table.json; do     
     aws dynamodb create-table --endpoint-url $1 --cli-input-json file://"${f#./}"; 
 done
 

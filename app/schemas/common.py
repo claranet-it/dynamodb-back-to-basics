@@ -10,7 +10,7 @@ class PaginatedItems(BaseModel, Generic[T]):
     next: Optional[str]
 
 
-class Paginated(BaseModel):
+class PaginatedQuery(BaseModel):
     start: Optional[str] = None
     limit: Optional[int] = None
 
