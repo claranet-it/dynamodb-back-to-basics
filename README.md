@@ -16,7 +16,7 @@
 
 - [x] Get details of an E-Bike and related Bookings​
 - [x] Get Bookings for a specific User
-- [ ] Retrieve all available E-Bikes​
+- [x] Retrieve all available E-Bikes​
 - [ ] Get details of a specific Booking​
 
 

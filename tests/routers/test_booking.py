@@ -48,3 +48,34 @@ def test_get_bookings(
     assert "next" in body
     assert body.get("next") == expected_next
     assert len(body.get("items")) == expected_items_length
+
+
+@pytest.mark.parametrize(
+    "url, expected_status_code, expected_items_length, expected_next",
+    [
+        ("/api/booking/available-bikes", 200, 3, None),
+        (
+            "/api/booking/available-bikes?limit=2",
+            200,
+            2,
+            "eyJzayI6ICJCSUtFIzAwMyIsICJnczFfcGsiOiAiQVZBSUxBQkxFIiwgInBrIjogIkJJS0UjMDAzIiwgImdzMV9zayI6ICIwMDMifQ==",
+        ),
+        (
+            "/api/booking/available-bikes?start=eyJzayI6ICJCSUtFIzAwMyIsICJnczFfcGsiOiAiQVZBSUxBQkxFIiwgInBrIjogIkJJS0UjMDAzIiwgImdzMV9zayI6ICIwMDMifQ==",
+            200,
+            1,
+            None,
+        ),
+    ],
+)
+def test_get_available_bikes(
+    client, url, expected_status_code, expected_items_length, expected_next
+):
+    response = client.get(url)
+
+    assert response.status_code == expected_status_code
+    body = response.json()
+    assert "items" in body
+    assert "next" in body
+    assert body.get("next") == expected_next
+    assert len(body.get("items")) == expected_items_length

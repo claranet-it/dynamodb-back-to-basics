@@ -2,6 +2,7 @@ from typing import Optional
 
 from fastapi import APIRouter, HTTPException
 
+from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.booking import (
     Booking,
     BookingsForBike,
@@ -10,6 +11,7 @@ from app.schemas.booking import (
 )
 from app.schemas.common import PaginatedItems
 from app.use_cases import (
+    GetAvailableBikesDependency,
     GetBookingsForBikeDependency,
     GetBookingsForUserDependency,
 )
@@ -17,6 +19,20 @@ from app.use_cases import (
 router = APIRouter(
     prefix="/api/booking",
 )
+
+
+@router.get("/available-bikes", response_model=PaginatedItems[Bike])
+async def available_bikes(
+    use_case: GetAvailableBikesDependency,
+    start: Optional[str] = None,
+    limit: Optional[int] = None,
+) -> BookingsForBike:
+    return await use_case(
+        GetAvailableBikesQuery(
+            start=start,
+            limit=limit,
+        )
+    )
 
 
 @router.get("/bike/{bike_id}", response_model=BookingsForBike)

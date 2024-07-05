@@ -1,7 +1,7 @@
 from pydantic import ConfigDict
 from pydantic.alias_generators import to_camel
 
-from app.schemas.common import SingleTableModel
+from app.schemas.common import PaginatedQuery, SingleTableModel
 
 
 class Bike(SingleTableModel):
@@ -15,3 +15,7 @@ class Bike(SingleTableModel):
         populate_by_name=True,
         from_attributes=True,
     )
+
+
+class GetAvailableBikesQuery(PaginatedQuery):
+    pass

@@ -21,7 +21,7 @@
                     "pk": {"S": "BIKE#002"},
                     "sk": {"S": "BIKE#002"},
                     "entity": {"S": "BIKE"},
-                    "gs1_pk": {"S": "AVAILABLE"},
+                    "gs1_pk": {"S": "NOT AVAILABLE"},
                     "gs1_sk": {"S": "002"},
                     "id": {"S": "002"},
                     "model": {"S": "Camaro"},
