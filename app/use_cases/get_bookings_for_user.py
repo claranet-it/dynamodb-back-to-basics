@@ -1,18 +1,23 @@
 import base64
 import json
-from typing import Any
+from typing import Protocol
 
+from app import SettingsDependency
+from app.libs import DynamoDBResourceDependency
 from app.schemas.booking import (
     Booking,
     GetBookingsForUserQuery,
 )
 from app.schemas.common import PaginatedItems
-from app.settings import Settings
+
+
+class GetBookingsForUserUseCase(Protocol):
+    def __call__(self, query: GetBookingsForUserQuery) -> PaginatedItems[Booking]: ...
 
 
 def get_bookings_for_user(
-    dynamodb_resource: Any,
-    settings: Settings,
+    dynamodb_resource: DynamoDBResourceDependency,
+    settings: SettingsDependency,
 ):
     async def _get_bookings_for_user(
         query: GetBookingsForUserQuery,

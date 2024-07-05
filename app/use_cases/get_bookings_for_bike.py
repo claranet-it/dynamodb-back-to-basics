@@ -1,10 +1,15 @@
-from typing import Any
+from typing import Protocol
 
+from app.libs import DynamoDBResourceDependency
 from app.schemas.bike import Bike
 from app.schemas.booking import Booking, BookingsForBike, GetBookingsForBikeQuery
 
 
-def get_bookings_for_bike(dynamodb_resource: Any):
+class GetBookingsForBikeUseCase(Protocol):
+    def __call__(self, query: GetBookingsForBikeQuery) -> BookingsForBike: ...
+
+
+def get_bookings_for_bike(dynamodb_resource: DynamoDBResourceDependency):
     async def _get_bookings_for_bike(query: GetBookingsForBikeQuery) -> BookingsForBike:
         table = dynamodb_resource.Table("booking")
 
