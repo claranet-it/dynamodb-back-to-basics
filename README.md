@@ -17,7 +17,10 @@
 - [x] Get details of an E-Bike and related Bookings​
 - [x] Get Bookings for a specific User
 - [x] Retrieve all available E-Bikes​
-- [ ] Get details of a specific Booking​
+- [x] Get details of a specific Booking​
+- [] Create a new Booking​
+- [] Update an existing Booking​
+- [] Delete an existing Booking​
 
 
 ## Commands
