@@ -16,6 +16,7 @@ def test_get_bookings_for_non_existing_bike(client):
     response = client.get("/api/booking/bike/asdf")
 
     assert response.status_code == 404
+    assert response.json() == {"detail": "Bike not found"}
 
 
 @pytest.mark.parametrize(
@@ -79,3 +80,21 @@ def test_get_available_bikes(
     assert "next" in body
     assert body.get("next") == expected_next
     assert len(body.get("items")) == expected_items_length
+
+
+def test_get_booking_detail(client):
+    response = client.get("/api/booking/detail/002/014")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body.get("id") == "014"
+    assert body.get("userId") == "201"
+    assert body.get("bikeId") == "002"
+    assert body.get("bookingDate") == "2024-06-30"
+
+
+def test_get_booking_detail_for_non_existing_booking(client):
+    response = client.get("/api/booking/detail/002/asdf")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Booking not found"}

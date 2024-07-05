@@ -6,6 +6,10 @@ from app.use_cases.get_available_bikes import (
     GetAvailableBikesUseCase,
     get_available_bikes,
 )
+from app.use_cases.get_booking_detail import (
+    GetBookingDetailUseCase,
+    get_booking_detail,
+)
 from app.use_cases.get_bookings_for_bike import (
     GetBookingsForBikeUseCase,
     get_bookings_for_bike,
@@ -25,4 +29,8 @@ GetBookingsForUserDependency = Annotated[
 
 GetAvailableBikesDependency = Annotated[
     GetAvailableBikesUseCase, Depends(get_available_bikes)
+]
+
+GetBookingDetailDependency = Annotated[
+    GetBookingDetailUseCase, Depends(get_booking_detail)
 ]

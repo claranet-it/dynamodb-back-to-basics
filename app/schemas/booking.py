@@ -31,3 +31,8 @@ class GetBookingsForBikeQuery(BaseModel):
 
 class GetBookingsForUserQuery(PaginatedQuery):
     user_id: str
+
+
+class GetBookingDetailQuery(BaseModel):
+    bike_id: str
+    booking_id: str
