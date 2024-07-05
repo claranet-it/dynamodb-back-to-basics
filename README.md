@@ -15,18 +15,17 @@
 ## Use Cases
 
 - [x] Get details of an E-Bike and related Bookings​
-- [ ] Get Bookings for a specific User
+- [x] Get Bookings for a specific User
 - [ ] Retrieve all available E-Bikes​
 - [ ] Get details of a specific Booking​
 
-## Install 
-
-```
-make install
-```
-
 
 ## Commands
+
+Install
+```
+make make install
+```
 
 Start local server
 ```
@@ -58,10 +57,6 @@ Launch test with coverage
 make coverage
 ```
 
-Run pre-commit hooks
-```
-make pre-commit
-```
 
 ## Debug (vscode)
 
