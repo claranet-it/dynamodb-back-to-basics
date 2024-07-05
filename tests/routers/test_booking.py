@@ -1,3 +1,6 @@
+import pytest
+
+
 def test_get_bookings_for_bike(client):
     response = client.get("/api/booking/bike/001")
 
@@ -15,37 +18,33 @@ def test_get_bookings_for_non_existing_bike(client):
     assert response.status_code == 404
 
 
-def test_get_bookings_for_user(client):
-    response = client.get("/api/booking/user/203")
+@pytest.mark.parametrize(
+    "url, expected_status_code, expected_items_length, expected_next",
+    [
+        ("/api/booking/user/203", 200, 4, None),
+        ("/api/booking/user/asdf", 200, 0, None),
+        (
+            "/api/booking/user/203?limit=2",
+            200,
+            2,
+            "eyJzayI6ICJCT09LSU5HIzAwNiIsICJnczFfcGsiOiAiVVNFUiMyMDMiLCAicGsiOiAiQklLRSMwMDIiLCAiZ3MxX3NrIjogIkJPT0tJTkcjMDA2In0=",
+        ),
+        (
+            "/api/booking/user/203?limit=2&start=eyJzayI6ICJCT09LSU5HIzAxMiIsICJnczFfcGsiOiAiVVNFUiMyMDMiLCAicGsiOiAiQklLRSMwMDQiLCAiZ3MxX3NrIjogIkJPT0tJTkcjMDEyIn0=",
+            200,
+            0,
+            None,
+        ),
+    ],
+)
+def test_get_bookings(
+    client, url, expected_status_code, expected_items_length, expected_next
+):
+    response = client.get(url)
 
-    assert response.status_code == 200
+    assert response.status_code == expected_status_code
     body = response.json()
     assert "items" in body
     assert "next" in body
-    assert body.get("next") is None
-    assert len(body.get("items")) == 4
-
-
-def test_get_bookings_for_non_existing_user(client):
-    response = client.get("/api/booking/user/asdf")
-
-    assert response.status_code == 200
-    body = response.json()
-    assert "items" in body
-    assert "next" in body
-    assert body.get("next") is None
-    assert len(body.get("items")) == 0
-
-
-def test_get_bookings_for_user_with_limit(client):
-    response = client.get("/api/booking/user/203?limit=2")
-
-    assert response.status_code == 200
-    body = response.json()
-    assert "items" in body
-    assert "next" in body
-    assert (
-        body.get("next")
-        == "eyJzayI6ICJCT09LSU5HIzAwNiIsICJnczFfcGsiOiAiVVNFUiMyMDMiLCAicGsiOiAiQklLRSMwMDIiLCAiZ3MxX3NrIjogIkJPT0tJTkcjMDA2In0="
-    )
-    assert len(body.get("items")) == 2
+    assert body.get("next") == expected_next
+    assert len(body.get("items")) == expected_items_length
