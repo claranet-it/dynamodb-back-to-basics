@@ -39,13 +39,13 @@ prepare-test: # Prepare test environment
 
 test: prepare-test # Run tests	
 ifdef filter
-	ENV=test poetry run pytest $(filter) -vv
+	poetry run pytest $(filter) -vv
 else
-	ENV=test poetry run pytest -vv
+	poetry run pytest -vv
 endif
 
 coverage: test # Run tests with coverage
-	ENV=test poetry run pytest --cov-report term-missing --cov=app
+	poetry run pytest --cov-report term-missing --cov=app
 
 lint: # Run linter
 	poetry run ruff check .
