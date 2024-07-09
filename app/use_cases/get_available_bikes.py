@@ -22,9 +22,9 @@ def get_available_bikes(
         table = dynamodb_resource.Table("booking")
 
         query_params = {
-            "KeyConditionExpression": "gs1_pk = :gs1_pk",
+            "KeyConditionExpression": "gsi1_pk = :gsi1_pk",
             "ExpressionAttributeValues": {
-                ":gs1_pk": "AVAILABLE",
+                ":gsi1_pk": "AVAILABLE",
             },
             "Limit": query.limit or settings.dynamodb_default_query_limit,
             "IndexName": "gs1",

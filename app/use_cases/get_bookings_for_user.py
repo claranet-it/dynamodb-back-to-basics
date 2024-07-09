@@ -24,13 +24,13 @@ def get_bookings_for_user(
     ) -> PaginatedItems[Booking]:
         table = dynamodb_resource.Table("booking")
 
-        gs1_pk_value = f"USER#{query.user_id}"
+        gsi1_pk_value = f"USER#{query.user_id}"
 
         query_params = {
-            "KeyConditionExpression": "gs1_pk = :gs1_pk AND begins_with(gs1_sk, :gs1_sk)",
+            "KeyConditionExpression": "gsi1_pk = :gsi1_pk AND begins_with(gsi1_sk, :gsi1_sk)",
             "ExpressionAttributeValues": {
-                ":gs1_pk": gs1_pk_value,
-                ":gs1_sk": "BOOKING#",
+                ":gsi1_pk": gsi1_pk_value,
+                ":gsi1_sk": "BOOKING#",
             },
             "Limit": query.limit or settings.dynamodb_default_query_limit,
             "IndexName": "gs1",

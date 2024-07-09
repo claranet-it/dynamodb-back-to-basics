@@ -18,6 +18,6 @@ class PaginatedQuery(BaseModel):
 class SingleTableModel(BaseModel):
     pk: str = Field(exclude=True)
     sk: str = Field(exclude=True)
-    gs1_pk: str = Field(exclude=True)
-    gs1_sk: str = Field(exclude=True)
+    gsi1_pk: str = Field(exclude=True)
+    gsi1_sk: str = Field(exclude=True)
     entity: str = Field(exclude=True)

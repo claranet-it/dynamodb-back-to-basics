@@ -20,11 +20,11 @@
             "AttributeType": "S"
         },
         {
-            "AttributeName": "gs1_pk",
+            "AttributeName": "gsi1_pk",
             "AttributeType": "S"
         },
         {
-            "AttributeName": "gs1_sk",
+            "AttributeName": "gsi1_sk",
             "AttributeType": "S"
         }
     ],
@@ -33,11 +33,11 @@
             "IndexName": "gs1",
             "KeySchema": [
                 {
-                    "AttributeName": "gs1_pk",
+                    "AttributeName": "gsi1_pk",
                     "KeyType": "HASH"
                 },
                 {
-                    "AttributeName": "gs1_sk",
+                    "AttributeName": "gsi1_sk",
                     "KeyType": "RANGE"
                 }
             ],

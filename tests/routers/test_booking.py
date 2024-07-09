@@ -28,10 +28,10 @@ def test_get_bookings_for_non_existing_bike(client):
             "/api/booking/user/203?limit=2",
             200,
             2,
-            "eyJzayI6ICJCT09LSU5HIzAwNiIsICJnczFfcGsiOiAiVVNFUiMyMDMiLCAicGsiOiAiQklLRSMwMDIiLCAiZ3MxX3NrIjogIkJPT0tJTkcjMDA2In0=",
+            "eyJzayI6ICJCT09LSU5HIzAwNiIsICJnc2kxX3BrIjogIlVTRVIjMjAzIiwgInBrIjogIkJJS0UjMDAyIiwgImdzaTFfc2siOiAiQk9PS0lORyMwMDYifQ==",
         ),
         (
-            "/api/booking/user/203?limit=2&start=eyJzayI6ICJCT09LSU5HIzAxMiIsICJnczFfcGsiOiAiVVNFUiMyMDMiLCAicGsiOiAiQklLRSMwMDQiLCAiZ3MxX3NrIjogIkJPT0tJTkcjMDEyIn0=",
+            "/api/booking/user/203?limit=2&start=eyJzayI6ICJCT09LSU5HIzAxMiIsICJnc2kxX3BrIjogIlVTRVIjMjAzIiwgInBrIjogIkJJS0UjMDA0IiwgImdzaTFfc2siOiAiQk9PS0lORyMwMTIifQ==",
             200,
             0,
             None,
@@ -59,10 +59,10 @@ def test_get_bookings(
             "/api/booking/available-bikes?limit=2",
             200,
             2,
-            "eyJzayI6ICJCSUtFIzAwMyIsICJnczFfcGsiOiAiQVZBSUxBQkxFIiwgInBrIjogIkJJS0UjMDAzIiwgImdzMV9zayI6ICIwMDMifQ==",
+            "eyJzayI6ICJCSUtFIzAwMyIsICJnc2kxX3BrIjogIkFWQUlMQUJMRSIsICJwayI6ICJCSUtFIzAwMyIsICJnc2kxX3NrIjogIjAwMyJ9",
         ),
         (
-            "/api/booking/available-bikes?start=eyJzayI6ICJCSUtFIzAwMyIsICJnczFfcGsiOiAiQVZBSUxBQkxFIiwgInBrIjogIkJJS0UjMDAzIiwgImdzMV9zayI6ICIwMDMifQ==",
+            "/api/booking/available-bikes?start=eyJzayI6ICJCSUtFIzAwMyIsICJnc2kxX3BrIjogIkFWQUlMQUJMRSIsICJwayI6ICJCSUtFIzAwMyIsICJnc2kxX3NrIjogIjAwMyJ9",
             200,
             1,
             None,
@@ -98,3 +98,25 @@ def test_get_booking_detail_for_non_existing_booking(client):
 
     assert response.status_code == 404
     assert response.json() == {"detail": "Booking not found"}
+
+
+def test_create_booking(client):
+    response = client.post(
+        "/api/booking",
+        json={
+            "userId": "601",
+            "bikeId": "099",
+            "bookingDate": "2024-06-30",
+        },
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+
+    booking_id = body.get("id")
+    user_id = body.get("userId")
+    bike_id = body.get("bikeId")
+    assert booking_id is not None
+    assert user_id == "601"
+    assert bike_id == "099"
+    assert body.get("bookingDate") == "2024-06-30"

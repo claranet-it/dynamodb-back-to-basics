@@ -2,6 +2,7 @@ from typing import Annotated
 
 from fastapi import Depends
 
+from app.use_cases.create_booking import CreateBookingUseCase, create_booking
 from app.use_cases.get_available_bikes import (
     GetAvailableBikesUseCase,
     get_available_bikes,
@@ -34,3 +35,5 @@ GetAvailableBikesDependency = Annotated[
 GetBookingDetailDependency = Annotated[
     GetBookingDetailUseCase, Depends(get_booking_detail)
 ]
+
+CreateBookingDependency = Annotated[CreateBookingUseCase, Depends(create_booking)]

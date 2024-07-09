@@ -18,7 +18,7 @@
 - [x] Get Bookings for a specific User
 - [x] Retrieve all available E-Bikes​
 - [x] Get details of a specific Booking​
-- [] Create a new Booking​
+- [x] Create a new Booking​
 - [] Update an existing Booking​
 - [] Delete an existing Booking​
 

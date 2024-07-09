@@ -36,3 +36,15 @@ class GetBookingsForUserQuery(PaginatedQuery):
 class GetBookingDetailQuery(BaseModel):
     bike_id: str
     booking_id: str
+
+
+class CreateBookingCommand(BaseModel):
+    user_id: str
+    bike_id: str
+    booking_date: date
+
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True,
+        from_attributes=True,
+    )

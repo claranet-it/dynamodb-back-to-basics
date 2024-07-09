@@ -1,17 +1,19 @@
 from typing import Optional
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 
 from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.booking import (
     Booking,
     BookingsForBike,
+    CreateBookingCommand,
     GetBookingDetailQuery,
     GetBookingsForBikeQuery,
     GetBookingsForUserQuery,
 )
 from app.schemas.common import PaginatedItems
 from app.use_cases import (
+    CreateBookingDependency,
     GetAvailableBikesDependency,
     GetBookingDetailDependency,
     GetBookingsForBikeDependency,
@@ -80,3 +82,14 @@ async def booking_detail(
         raise HTTPException(status_code=404, detail="Booking not found")
 
     return result
+
+
+@router.post("/", response_model=Booking, status_code=status.HTTP_201_CREATED)
+async def create_booking(
+    use_case: CreateBookingDependency,
+    command: CreateBookingCommand,
+) -> Booking:
+    try:
+        return await use_case(command)
+    except Exception:
+        raise HTTPException(status_code=500, detail="Error creating booking")
