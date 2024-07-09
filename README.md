@@ -19,7 +19,7 @@
 - [x] Retrieve all available E-Bikes​
 - [x] Get details of a specific Booking​
 - [x] Create a new Booking​
-- [] Update an existing Booking​
+- [x] Update an existing Booking​
 - [] Delete an existing Booking​
 
 

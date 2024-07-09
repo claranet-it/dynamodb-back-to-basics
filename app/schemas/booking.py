@@ -48,3 +48,14 @@ class CreateBookingCommand(BaseModel):
         populate_by_name=True,
         from_attributes=True,
     )
+
+
+class DeleteBookingCommand(BaseModel):
+    booking_id: str
+    bike_id: str
+
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True,
+        from_attributes=True,
+    )

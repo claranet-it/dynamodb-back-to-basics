@@ -1,10 +1,10 @@
 from typing import Protocol
 from uuid import uuid4
 
+from app.exceptions.booking_exceptions import CreateBookingException
 from app.libs import DynamoDBResourceDependency
-from app.schemas.bike import Bike, GetAvailableBikesQuery
+from app.schemas.bike import GetAvailableBikesQuery
 from app.schemas.booking import Booking
-from app.schemas.common import PaginatedItems
 
 
 class CreateBookingUseCase(Protocol):
@@ -16,7 +16,7 @@ def create_booking(
 ):
     async def _create_booking(
         command: GetAvailableBikesQuery,
-    ) -> PaginatedItems[Bike]:
+    ) -> Booking:
         table = dynamodb_resource.Table("booking")
 
         booking_id = uuid4()
@@ -38,7 +38,7 @@ def create_booking(
         )
 
         if response["ResponseMetadata"]["HTTPStatusCode"] != 200:
-            raise Exception("Error creating booking")
+            raise CreateBookingException("Error creating booking")
 
         return Booking(**item_data)
 

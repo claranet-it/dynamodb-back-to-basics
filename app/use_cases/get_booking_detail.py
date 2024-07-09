@@ -24,7 +24,7 @@ def get_booking_detail(dynamodb_resource: DynamoDBResourceDependency):
         }
 
         result = table.query(**query_params)
-        print(result)
+
         if not result["Items"]:
             return None
 

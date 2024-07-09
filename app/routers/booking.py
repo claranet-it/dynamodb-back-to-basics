@@ -2,11 +2,16 @@ from typing import Optional
 
 from fastapi import APIRouter, HTTPException, status
 
+from app.exceptions.booking_exceptions import (
+    CreateBookingException,
+    DeleteBookingException,
+)
 from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.booking import (
     Booking,
     BookingsForBike,
     CreateBookingCommand,
+    DeleteBookingCommand,
     GetBookingDetailQuery,
     GetBookingsForBikeQuery,
     GetBookingsForUserQuery,
@@ -14,6 +19,7 @@ from app.schemas.booking import (
 from app.schemas.common import PaginatedItems
 from app.use_cases import (
     CreateBookingDependency,
+    DeleteBookingDependency,
     GetAvailableBikesDependency,
     GetBookingDetailDependency,
     GetBookingsForBikeDependency,
@@ -91,5 +97,26 @@ async def create_booking(
 ) -> Booking:
     try:
         return await use_case(command)
-    except Exception:
+    except CreateBookingException:
         raise HTTPException(status_code=500, detail="Error creating booking")
+
+
+@router.delete("/{bike_id}/{booking_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_booking(
+    use_case: DeleteBookingDependency,
+    bike_id: str,
+    booking_id: str,
+) -> None:
+    try:
+        result = await use_case(
+            DeleteBookingCommand(
+                bike_id=bike_id,
+                booking_id=booking_id,
+            )
+        )
+
+        if result is None:
+            raise HTTPException(status_code=404, detail="Booking not found")
+
+    except DeleteBookingException:
+        raise HTTPException(status_code=500, detail="Error deleting booking")

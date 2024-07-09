@@ -1,5 +1,7 @@
 import pytest
 
+from app.schemas.booking import CreateBookingCommand
+
 
 def test_get_bookings_for_bike(client):
     response = client.get("/api/booking/bike/001")
@@ -120,3 +122,20 @@ def test_create_booking(client):
     assert user_id == "601"
     assert bike_id == "099"
     assert body.get("bookingDate") == "2024-06-30"
+
+
+def test_delete_booking(client, create_booking):
+    bike_id = "099"
+    booking_id = create_booking(
+        CreateBookingCommand(user_id="601", bike_id=bike_id, booking_date="2024-06-30")
+    )
+
+    response = client.delete(f"/api/booking/{bike_id}/{booking_id}")
+
+    assert response.status_code == 204
+
+
+def test_delete_non_existing_booking(client):
+    response = client.delete("/api/booking/001/asdf")
+
+    assert response.status_code == 404
