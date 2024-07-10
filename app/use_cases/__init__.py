@@ -20,6 +20,7 @@ from app.use_cases.get_bookings_for_user import (
     GetBookingsForUserUseCase,
     get_bookings_for_user,
 )
+from app.use_cases.update_booking import UpdateBookingUseCase, update_booking
 
 GetBookingsForBikeDependency = Annotated[
     GetBookingsForBikeUseCase, Depends(get_bookings_for_bike)
@@ -40,3 +41,5 @@ GetBookingDetailDependency = Annotated[
 CreateBookingDependency = Annotated[CreateBookingUseCase, Depends(create_booking)]
 
 DeleteBookingDependency = Annotated[DeleteBookingUseCase, Depends(delete_booking)]
+
+UpdateBookingDependency = Annotated[UpdateBookingUseCase, Depends(update_booking)]

@@ -4,3 +4,7 @@ class CreateBookingException(Exception):
 
 class DeleteBookingException(Exception):
     pass
+
+
+class UpdateBookingException(Exception):
+    pass

@@ -38,7 +38,7 @@ class GetBookingDetailQuery(BaseModel):
     booking_id: str
 
 
-class CreateBookingCommand(BaseModel):
+class CreateBookingPayload(BaseModel):
     user_id: str
     bike_id: str
     booking_date: date
@@ -50,6 +50,10 @@ class CreateBookingCommand(BaseModel):
     )
 
 
+class CreateBookingCommand(CreateBookingPayload):
+    pass
+
+
 class DeleteBookingCommand(BaseModel):
     booking_id: str
     bike_id: str
@@ -59,3 +63,19 @@ class DeleteBookingCommand(BaseModel):
         populate_by_name=True,
         from_attributes=True,
     )
+
+
+class UpdateBookingPayload(BaseModel):
+    user_id: str
+    booking_date: date
+
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True,
+        from_attributes=True,
+    )
+
+
+class UpdateBookingCommand(UpdateBookingPayload):
+    booking_id: str
+    bike_id: str

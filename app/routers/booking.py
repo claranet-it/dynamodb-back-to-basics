@@ -5,16 +5,20 @@ from fastapi import APIRouter, HTTPException, status
 from app.exceptions.booking_exceptions import (
     CreateBookingException,
     DeleteBookingException,
+    UpdateBookingException,
 )
 from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.booking import (
     Booking,
     BookingsForBike,
     CreateBookingCommand,
+    CreateBookingPayload,
     DeleteBookingCommand,
     GetBookingDetailQuery,
     GetBookingsForBikeQuery,
     GetBookingsForUserQuery,
+    UpdateBookingCommand,
+    UpdateBookingPayload,
 )
 from app.schemas.common import PaginatedItems
 from app.use_cases import (
@@ -24,6 +28,7 @@ from app.use_cases import (
     GetBookingDetailDependency,
     GetBookingsForBikeDependency,
     GetBookingsForUserDependency,
+    UpdateBookingDependency,
 )
 
 router = APIRouter(
@@ -53,7 +58,9 @@ async def bookings_for_bike(
     result = await use_case(GetBookingsForBikeQuery(bike_id=bike_id))
 
     if result is None:
-        raise HTTPException(status_code=404, detail="Bike not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Bike not found"
+        )
 
     return result
 
@@ -85,7 +92,9 @@ async def booking_detail(
     )
 
     if result is None:
-        raise HTTPException(status_code=404, detail="Booking not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Booking not found"
+        )
 
     return result
 
@@ -93,12 +102,15 @@ async def booking_detail(
 @router.post("/", response_model=Booking, status_code=status.HTTP_201_CREATED)
 async def create_booking(
     use_case: CreateBookingDependency,
-    command: CreateBookingCommand,
+    payload: CreateBookingPayload,
 ) -> Booking:
     try:
-        return await use_case(command)
+        return await use_case(CreateBookingCommand(**payload.model_dump()))
     except CreateBookingException:
-        raise HTTPException(status_code=500, detail="Error creating booking")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error creating booking",
+        )
 
 
 @router.delete("/{bike_id}/{booking_id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -116,7 +128,41 @@ async def delete_booking(
         )
 
         if result is None:
-            raise HTTPException(status_code=404, detail="Booking not found")
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Booking not found"
+            )
 
     except DeleteBookingException:
-        raise HTTPException(status_code=500, detail="Error deleting booking")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error deleting booking",
+        )
+
+
+@router.patch("/{bike_id}/{booking_id}", response_model=Booking)
+async def update_booking(
+    use_case: UpdateBookingDependency,
+    bike_id: str,
+    booking_id: str,
+    payload: UpdateBookingPayload,
+) -> Booking:
+    try:
+        result = await use_case(
+            UpdateBookingCommand(
+                bike_id=bike_id,
+                booking_id=booking_id,
+                user_id=payload.user_id,
+                booking_date=payload.booking_date,
+            )
+        )
+
+        if result is None:
+            raise HTTPException(status_code=404, detail="Booking not found")
+
+    except UpdateBookingException:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error updating booking",
+        )
+
+    return result

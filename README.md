@@ -20,7 +20,7 @@
 - [x] Get details of a specific Booking​
 - [x] Create a new Booking​
 - [x] Update an existing Booking​
-- [] Delete an existing Booking​
+- [x] Delete an existing Booking​
 
 
 ## Commands
