@@ -3,7 +3,7 @@ from typing import Annotated
 import boto3
 from fastapi import Depends
 
-from app.settings import Settings, get_settings
+from app.libs.settings import Settings, get_settings
 
 
 def get_dynamodb_resource(get_settings=Annotated[Settings, Depends(get_settings)]):

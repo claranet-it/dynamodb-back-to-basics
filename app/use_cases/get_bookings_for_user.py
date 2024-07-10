@@ -2,8 +2,7 @@ import base64
 import json
 from typing import Protocol
 
-from app import SettingsDependency
-from app.libs import DynamoDBResourceDependency
+from app.libs import DynamoDBResourceDependency, SettingsDependency
 from app.schemas.booking import (
     Booking,
     GetBookingsForUserQuery,

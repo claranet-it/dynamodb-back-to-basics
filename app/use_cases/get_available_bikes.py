@@ -2,8 +2,7 @@ import base64
 import json
 from typing import Protocol
 
-from app import SettingsDependency
-from app.libs import DynamoDBResourceDependency
+from app.libs import DynamoDBResourceDependency, SettingsDependency
 from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.common import PaginatedItems
 
