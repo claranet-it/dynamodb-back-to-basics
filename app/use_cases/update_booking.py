@@ -2,7 +2,7 @@ from typing import Annotated, Optional, Protocol
 
 from fastapi import Depends
 
-from app.libs import DynamoDBResourceDependency
+from app.libs.aws import DynamoDBResourceDependency
 from app.schemas.booking import Booking, GetBookingDetailQuery, UpdateBookingCommand
 from app.use_cases.get_booking_detail import GetBookingDetailDependency
 

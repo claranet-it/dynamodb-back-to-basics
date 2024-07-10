@@ -4,7 +4,7 @@ from uuid import uuid4
 from fastapi import Depends
 
 from app.exceptions.booking_exceptions import CreateBookingException
-from app.libs import DynamoDBResourceDependency
+from app.libs.aws import DynamoDBResourceDependency
 from app.schemas.bike import GetAvailableBikesQuery
 from app.schemas.booking import Booking
 

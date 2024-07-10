@@ -1,6 +1,8 @@
 import os
 from functools import lru_cache
+from typing import Annotated
 
+from fastapi import Depends
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 env = os.environ.get("ENV", "dev")
@@ -21,3 +23,6 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings():
     return Settings()
+
+
+SettingsDependency = Annotated[Settings, Depends(get_settings)]

@@ -7,7 +7,7 @@ from app.exceptions.booking_exceptions import (
     DeleteBookingException,
     UpdateBookingException,
 )
-from app.libs import LoggerDependency
+from app.libs.logger import LoggerDependency
 from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.booking import (
     Booking,

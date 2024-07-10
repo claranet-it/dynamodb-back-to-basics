@@ -2,7 +2,7 @@ from typing import Annotated, Protocol
 
 from fastapi import Depends
 
-from app.libs import DynamoDBResourceDependency
+from app.libs.aws import DynamoDBResourceDependency
 from app.schemas.bike import Bike
 from app.schemas.booking import Booking, BookingsForBike, GetBookingsForBikeQuery
 

@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Any
 
 import boto3
 from fastapi import Depends
@@ -18,3 +18,6 @@ def get_dynamodb_resource(get_settings=Annotated[Settings, Depends(get_settings)
             region_name=settings.aws_region,
         )
     return boto3.resource("dynamodb")
+
+
+DynamoDBResourceDependency = Annotated[Any, Depends(get_dynamodb_resource)]

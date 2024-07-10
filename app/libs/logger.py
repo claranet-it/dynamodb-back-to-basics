@@ -1,5 +1,8 @@
 import sys
 from logging import DEBUG, Formatter, Logger, StreamHandler, getLogger
+from typing import Annotated
+
+from fastapi import Depends
 
 
 def get_logger() -> Logger:
@@ -13,3 +16,6 @@ def get_logger() -> Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+LoggerDependency = Annotated[Logger, Depends(get_logger)]

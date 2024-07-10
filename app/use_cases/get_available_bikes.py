@@ -4,7 +4,8 @@ from typing import Annotated, Protocol
 
 from fastapi import Depends
 
-from app.libs import DynamoDBResourceDependency, SettingsDependency
+from app.libs.aws import DynamoDBResourceDependency
+from app.libs.settings import SettingsDependency
 from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.common import PaginatedItems
 
