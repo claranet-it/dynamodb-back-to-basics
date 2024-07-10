@@ -1,4 +1,6 @@
-from typing import Protocol
+from typing import Annotated, Protocol
+
+from fastapi import Depends
 
 from app.libs import DynamoDBResourceDependency
 from app.schemas.bike import Bike
@@ -32,3 +34,8 @@ def get_bookings_for_bike(dynamodb_resource: DynamoDBResourceDependency):
         )
 
     return _get_bookings_for_bike
+
+
+GetBookingsForBikeDependency = Annotated[
+    GetBookingsForBikeUseCase, Depends(get_bookings_for_bike)
+]

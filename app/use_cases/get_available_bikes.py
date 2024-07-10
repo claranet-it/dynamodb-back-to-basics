@@ -1,6 +1,8 @@
 import base64
 import json
-from typing import Protocol
+from typing import Annotated, Protocol
+
+from fastapi import Depends
 
 from app.libs import DynamoDBResourceDependency, SettingsDependency
 from app.schemas.bike import Bike, GetAvailableBikesQuery
@@ -51,3 +53,8 @@ def get_available_bikes(
         )
 
     return _get_available_bikes
+
+
+GetAvailableBikesDependency = Annotated[
+    GetAvailableBikesUseCase, Depends(get_available_bikes)
+]

@@ -1,6 +1,8 @@
 import base64
 import json
-from typing import Protocol
+from typing import Annotated, Protocol
+
+from fastapi import Depends
 
 from app.libs import DynamoDBResourceDependency, SettingsDependency
 from app.schemas.booking import (
@@ -57,3 +59,8 @@ def get_bookings_for_user(
         )
 
     return _get_bookings_for_user
+
+
+GetBookingsForUserDependency = Annotated[
+    GetBookingsForUserUseCase, Depends(get_bookings_for_user)
+]

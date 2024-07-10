@@ -1,4 +1,6 @@
-from typing import Optional, Protocol
+from typing import Annotated, Optional, Protocol
+
+from fastapi import Depends
 
 from app.libs import DynamoDBResourceDependency
 from app.schemas.booking import (
@@ -31,3 +33,8 @@ def get_booking_detail(dynamodb_resource: DynamoDBResourceDependency):
         return Booking(**result["Items"][0])
 
     return _get_booking_detail
+
+
+GetBookingDetailDependency = Annotated[
+    GetBookingDetailUseCase, Depends(get_booking_detail)
+]

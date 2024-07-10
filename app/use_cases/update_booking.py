@@ -1,7 +1,10 @@
-from typing import Optional, Protocol
+from typing import Annotated, Optional, Protocol
+
+from fastapi import Depends
 
 from app.libs import DynamoDBResourceDependency
-from app.schemas.booking import Booking, UpdateBookingCommand
+from app.schemas.booking import Booking, GetBookingDetailQuery, UpdateBookingCommand
+from app.use_cases.get_booking_detail import GetBookingDetailDependency
 
 
 class UpdateBookingUseCase(Protocol):
@@ -10,6 +13,7 @@ class UpdateBookingUseCase(Protocol):
 
 def update_booking(
     dynamodb_resource: DynamoDBResourceDependency,
+    get_booking_use_case: GetBookingDetailDependency,
 ):
     async def _update_booking(
         command: UpdateBookingCommand,
@@ -19,14 +23,14 @@ def update_booking(
         pk_value = f"BIKE#{command.bike_id}"
         sk_value = f"BOOKING#{command.booking_id}"
 
-        query_params = {
-            "KeyConditionExpression": "pk = :pk AND sk = :sk",
-            "ExpressionAttributeValues": {":pk": pk_value, ":sk": sk_value},
-        }
+        booking = await get_booking_use_case(
+            GetBookingDetailQuery(
+                bike_id=command.bike_id,
+                booking_id=command.booking_id,
+            )
+        )
 
-        result = table.query(**query_params)
-
-        if not result["Items"]:
+        if not booking:
             return None
 
         table.update_item(
@@ -38,12 +42,11 @@ def update_booking(
             },
         )
 
-        booking_data = {
-            **result["Items"][0],
-            "user_id": command.user_id,
-            "booking_date": command.booking_date.strftime("%Y-%m-%d"),
-        }
+        booking.update(command)
 
-        return Booking(**booking_data)
+        return booking
 
     return _update_booking
+
+
+UpdateBookingDependency = Annotated[UpdateBookingUseCase, Depends(update_booking)]

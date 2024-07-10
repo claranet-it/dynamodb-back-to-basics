@@ -22,15 +22,13 @@ from app.schemas.booking import (
     UpdateBookingPayload,
 )
 from app.schemas.common import PaginatedItems
-from app.use_cases import (
-    CreateBookingDependency,
-    DeleteBookingDependency,
-    GetAvailableBikesDependency,
-    GetBookingDetailDependency,
-    GetBookingsForBikeDependency,
-    GetBookingsForUserDependency,
-    UpdateBookingDependency,
-)
+from app.use_cases.create_booking import CreateBookingDependency
+from app.use_cases.delete_booking import DeleteBookingDependency
+from app.use_cases.get_available_bikes import GetAvailableBikesDependency
+from app.use_cases.get_booking_detail import GetBookingDetailDependency
+from app.use_cases.get_bookings_for_bike import GetBookingsForBikeDependency
+from app.use_cases.get_bookings_for_user import GetBookingsForUserDependency
+from app.use_cases.update_booking import UpdateBookingDependency
 
 router = APIRouter(
     prefix="/api/booking",

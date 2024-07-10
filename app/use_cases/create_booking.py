@@ -1,5 +1,7 @@
-from typing import Protocol
+from typing import Annotated, Protocol
 from uuid import uuid4
+
+from fastapi import Depends
 
 from app.exceptions.booking_exceptions import CreateBookingException
 from app.libs import DynamoDBResourceDependency
@@ -43,3 +45,6 @@ def create_booking(
         return Booking(**item_data)
 
     return _create_booking
+
+
+CreateBookingDependency = Annotated[CreateBookingUseCase, Depends(create_booking)]
