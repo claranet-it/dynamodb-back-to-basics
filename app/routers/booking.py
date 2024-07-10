@@ -7,6 +7,7 @@ from app.exceptions.booking_exceptions import (
     DeleteBookingException,
     UpdateBookingException,
 )
+from app.libs import LoggerDependency
 from app.schemas.bike import Bike, GetAvailableBikesQuery
 from app.schemas.booking import (
     Booking,
@@ -102,11 +103,13 @@ async def booking_detail(
 @router.post("/", response_model=Booking, status_code=status.HTTP_201_CREATED)
 async def create_booking(
     use_case: CreateBookingDependency,
+    logger: LoggerDependency,
     payload: CreateBookingPayload,
 ) -> Booking:
     try:
         return await use_case(CreateBookingCommand(**payload.model_dump()))
-    except CreateBookingException:
+    except CreateBookingException as e:
+        logger.error(f"Error creating booking: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error creating booking",
@@ -116,6 +119,7 @@ async def create_booking(
 @router.delete("/{bike_id}/{booking_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_booking(
     use_case: DeleteBookingDependency,
+    logger: LoggerDependency,
     bike_id: str,
     booking_id: str,
 ) -> None:
@@ -132,7 +136,8 @@ async def delete_booking(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Booking not found"
             )
 
-    except DeleteBookingException:
+    except DeleteBookingException as e:
+        logger.error(f"Error deleting booking: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error deleting booking",
@@ -142,6 +147,7 @@ async def delete_booking(
 @router.patch("/{bike_id}/{booking_id}", response_model=Booking)
 async def update_booking(
     use_case: UpdateBookingDependency,
+    logger: LoggerDependency,
     bike_id: str,
     booking_id: str,
     payload: UpdateBookingPayload,
@@ -159,7 +165,8 @@ async def update_booking(
         if result is None:
             raise HTTPException(status_code=404, detail="Booking not found")
 
-    except UpdateBookingException:
+    except UpdateBookingException as e:
+        logger.error(f"Error updating booking: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error updating booking",
