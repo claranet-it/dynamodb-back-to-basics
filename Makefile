@@ -27,7 +27,7 @@ admin-ui: # Open the UI in the browser
 	open http://localhost:8001
 
 install: # Install dependencies
-	poetry install
+	poetry install --no-root
 	cp .env.example .env.dev
 
 start-local: # Start the local server
