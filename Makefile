@@ -41,7 +41,7 @@ test: prepare-test # Run tests
 ifdef filter
 	poetry run pytest $(filter) -vv
 else
-	poetry run pytest -vv
+	poetry run pytest -n 4 -vv
 endif
 
 coverage: test # Run tests with coverage
