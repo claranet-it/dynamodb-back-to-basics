@@ -29,3 +29,15 @@ def create_booking(client: TestClient):
         return body.get("id")
 
     return _create_booking
+
+
+@pytest.fixture(scope="function")
+def create_booking_command():
+    def _create_booking_command(
+        user_id: str = "601", bike_id: str = "099", booking_date: str = "2024-06-30"
+    ) -> CreateBookingCommand:
+        return CreateBookingCommand(
+            user_id=user_id, bike_id=bike_id, booking_date=booking_date
+        )
+
+    return _create_booking_command
