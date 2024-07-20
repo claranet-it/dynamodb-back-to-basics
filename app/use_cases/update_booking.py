@@ -14,7 +14,7 @@ class UpdateBookingUseCase(Protocol):
 def update_booking(
     dynamodb_resource: DynamoDBResourceDependency,
     get_booking_use_case: GetBookingDetailDependency,
-):
+) -> UpdateBookingUseCase:
     async def _update_booking(
         command: UpdateBookingCommand,
     ) -> Optional[Booking]:

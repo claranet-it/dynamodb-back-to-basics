@@ -20,7 +20,7 @@ class GetBookingsForUserUseCase(Protocol):
 def get_bookings_for_user(
     dynamodb_resource: DynamoDBResourceDependency,
     settings: SettingsDependency,
-):
+) -> GetBookingsForUserUseCase:
     async def _get_bookings_for_user(
         query: GetBookingsForUserQuery,
     ) -> PaginatedItems[Booking]:

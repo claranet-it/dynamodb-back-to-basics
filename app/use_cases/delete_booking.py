@@ -15,7 +15,7 @@ class DeleteBookingUseCase(Protocol):
 def delete_booking(
     dynamodb_resource: DynamoDBResourceDependency,
     get_booking_use_case: GetBookingDetailDependency,
-):
+) -> DeleteBookingUseCase:
     async def _delete_booking(
         command: DeleteBookingCommand,
     ) -> Optional[Booking]:

@@ -11,7 +11,9 @@ class GetBookingsForBikeUseCase(Protocol):
     def __call__(self, query: GetBookingsForBikeQuery) -> BookingsForBike: ...
 
 
-def get_bookings_for_bike(dynamodb_resource: DynamoDBResourceDependency):
+def get_bookings_for_bike(
+    dynamodb_resource: DynamoDBResourceDependency,
+) -> GetBookingsForBikeUseCase:
     async def _get_bookings_for_bike(query: GetBookingsForBikeQuery) -> BookingsForBike:
         table = dynamodb_resource.Table("booking")
 

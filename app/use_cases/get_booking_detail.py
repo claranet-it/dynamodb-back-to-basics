@@ -13,7 +13,9 @@ class GetBookingDetailUseCase(Protocol):
     def __call__(self, query: GetBookingDetailQuery) -> Optional[Booking]: ...
 
 
-def get_booking_detail(dynamodb_resource: DynamoDBResourceDependency):
+def get_booking_detail(
+    dynamodb_resource: DynamoDBResourceDependency,
+) -> GetBookingDetailUseCase:
     async def _get_booking_detail(query: GetBookingDetailQuery) -> Optional[Booking]:
         table = dynamodb_resource.Table("booking")
 

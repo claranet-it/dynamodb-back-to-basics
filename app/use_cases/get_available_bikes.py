@@ -17,7 +17,7 @@ class GetAvailableBikesUseCase(Protocol):
 def get_available_bikes(
     dynamodb_resource: DynamoDBResourceDependency,
     settings: SettingsDependency,
-):
+) -> GetAvailableBikesUseCase:
     async def _get_available_bikes(
         query: GetAvailableBikesQuery,
     ) -> PaginatedItems[Bike]:

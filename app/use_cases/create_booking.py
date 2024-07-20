@@ -15,7 +15,7 @@ class CreateBookingUseCase(Protocol):
 
 def create_booking(
     dynamodb_resource: DynamoDBResourceDependency,
-):
+) -> CreateBookingUseCase:
     async def _create_booking(
         command: GetAvailableBikesQuery,
     ) -> Booking:
