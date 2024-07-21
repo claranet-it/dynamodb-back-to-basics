@@ -41,7 +41,7 @@ async def test_create_booking_ok(create_booking_command):
 
 
 @pytest.mark.asyncio
-async def test_create_booking_error_500(create_booking_command):
+async def test_create_booking_error(create_booking_command):
     dynamodb_resource_mock = MagicMock()
     table_mock = MagicMock()
     table_mock.put_item.return_value = {"ResponseMetadata": {"HTTPStatusCode": 500}}
@@ -51,8 +51,10 @@ async def test_create_booking_error_500(create_booking_command):
 
     command = create_booking_command()
 
-    with pytest.raises(CreateBookingException):
+    with pytest.raises(CreateBookingException) as exc:
         await use_case(command)
+
+    assert str(exc.value) == "Error creating booking"
 
     dynamodb_resource_mock.Table.assert_called_once_with("booking")
     table_mock.put_item.assert_called_once()

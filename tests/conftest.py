@@ -2,7 +2,7 @@ import pytest
 from starlette.testclient import TestClient
 
 from app.main import app
-from app.schemas.booking import CreateBookingCommand
+from app.schemas.booking import CreateBookingCommand, DeleteBookingCommand
 
 
 @pytest.fixture(scope="function")
@@ -41,3 +41,13 @@ def create_booking_command():
         )
 
     return _create_booking_command
+
+
+@pytest.fixture(scope="function")
+def delete_booking_command():
+    def _delete_booking_command(
+        bike_id: str = "099", booking_id: str = "123"
+    ) -> DeleteBookingCommand:
+        return DeleteBookingCommand(bike_id=bike_id, booking_id=booking_id)
+
+    return _delete_booking_command
