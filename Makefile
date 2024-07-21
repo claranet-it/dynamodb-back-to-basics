@@ -28,7 +28,9 @@ admin-ui: # Open the UI in the browser
 
 install: # Install dependencies
 	poetry install --no-root
-	cp .env.example .env.dev
+	@if [ ! -f .env.dev ]; then \
+		cp .env.example .env.dev; \
+	fi
 
 start-local: # Start the local server
 	poetry run uvicorn app.main:app --reload --port $(server_port)
@@ -45,7 +47,7 @@ else
 endif
 
 coverage: test # Run tests with coverage
-	poetry run pytest --cov-report term-missing --cov=app
+	poetry run pytest -n 4 --cov-report term-missing --cov=app
 
 lint: # Run linter
 	poetry run ruff check .
