@@ -2,6 +2,7 @@ import pytest
 from starlette.testclient import TestClient
 
 from app.main import app
+from app.schemas.bike import GetAvailableBikesQuery
 from app.schemas.booking import CreateBookingCommand, DeleteBookingCommand
 
 
@@ -51,3 +52,11 @@ def delete_booking_command():
         return DeleteBookingCommand(bike_id=bike_id, booking_id=booking_id)
 
     return _delete_booking_command
+
+
+@pytest.fixture(scope="function")
+def get_available_bikes_query():
+    def _get_available_bikes_query() -> GetAvailableBikesQuery:
+        return GetAvailableBikesQuery()
+
+    return _get_available_bikes_query
