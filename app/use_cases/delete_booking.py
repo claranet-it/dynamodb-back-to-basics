@@ -9,13 +9,13 @@ from app.use_cases.get_booking_detail import GetBookingDetailDependency
 
 
 class DeleteBookingUseCase(Protocol):
-    def __call__(self, DeleteBookingCommand) -> None: ...
+    def __call__(self, command: DeleteBookingCommand) -> Optional[Booking]: ...
 
 
 def delete_booking(
     dynamodb_resource: DynamoDBResourceDependency,
     get_booking_use_case: GetBookingDetailDependency,
-) -> DeleteBookingUseCase:
+):
     async def _delete_booking(
         command: DeleteBookingCommand,
     ) -> Optional[Booking]:

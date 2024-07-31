@@ -11,13 +11,13 @@ from app.schemas.common import PaginatedItems
 
 
 class GetAvailableBikesUseCase(Protocol):
-    def __call__(self, GetAvailableBikesQuery) -> PaginatedItems[Bike]: ...
+    def __call__(self, query: GetAvailableBikesQuery) -> PaginatedItems[Bike]: ...
 
 
 def get_available_bikes(
     dynamodb_resource: DynamoDBResourceDependency,
     settings: SettingsDependency,
-) -> GetAvailableBikesUseCase:
+):
     async def _get_available_bikes(
         query: GetAvailableBikesQuery,
     ) -> PaginatedItems[Bike]:
@@ -42,15 +42,17 @@ def get_available_bikes(
             return PaginatedItems[Bike](items=[], next=None)
 
         last_evaluated_key = result.get("LastEvaluatedKey")
-        next = None
+        next_token = None
         if last_evaluated_key:
-            next = base64.b64encode(json.dumps(last_evaluated_key).encode()).decode()
+            next_token = base64.b64encode(
+                json.dumps(last_evaluated_key).encode()
+            ).decode()
 
         bikes = result["Items"]
 
         return PaginatedItems[Bike](
             items=[Bike(**bike) for bike in bikes],
-            next=next,
+            next=next_token,
         )
 
     return _get_available_bikes

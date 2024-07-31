@@ -22,7 +22,7 @@ async def test_get_available_bikes_ok(get_available_bikes_query):
                 "id": "002",
                 "model": "Camaro",
                 "status": "AVAILABLE",
-                "location": "Gotham City"
+                "location": "Gotham City",
             }
         ],
         "LastEvaluatedKey": None,
@@ -30,8 +30,7 @@ async def test_get_available_bikes_ok(get_available_bikes_query):
     dynamodb_resource_mock.Table.return_value = table_mock
 
     use_case = get_available_bikes(
-        dynamodb_resource=dynamodb_resource_mock,
-        settings=settings.get_settings()        
+        dynamodb_resource=dynamodb_resource_mock, settings=settings.get_settings()
     )
 
     query = get_available_bikes_query()
@@ -40,15 +39,15 @@ async def test_get_available_bikes_ok(get_available_bikes_query):
 
     assert len(available_bikes.items) == 1
     assert available_bikes.items[0] == Bike(
-        pk='BIKE#002', 
-        sk='BIKE#002', 
-        gsi1_pk='NOT AVAILABLE', 
-        gsi1_sk='002', 
-        entity='BIKE', 
-        id='002', 
-        model='Camaro', 
-        status='AVAILABLE', 
-        location='Gotham City'
+        pk="BIKE#002",
+        sk="BIKE#002",
+        gsi1_pk="NOT AVAILABLE",
+        gsi1_sk="002",
+        entity="BIKE",
+        id="002",
+        model="Camaro",
+        status="AVAILABLE",
+        location="Gotham City",
     )
 
     dynamodb_resource_mock.Table.assert_called_once_with("booking")

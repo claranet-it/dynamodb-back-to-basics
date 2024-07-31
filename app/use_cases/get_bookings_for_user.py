@@ -20,7 +20,7 @@ class GetBookingsForUserUseCase(Protocol):
 def get_bookings_for_user(
     dynamodb_resource: DynamoDBResourceDependency,
     settings: SettingsDependency,
-) -> GetBookingsForUserUseCase:
+):
     async def _get_bookings_for_user(
         query: GetBookingsForUserQuery,
     ) -> PaginatedItems[Booking]:
@@ -48,15 +48,17 @@ def get_bookings_for_user(
             return PaginatedItems[Booking](items=[], next=None)
 
         last_evaluated_key = result.get("LastEvaluatedKey")
-        next = None
+        next_token = None
         if last_evaluated_key:
-            next = base64.b64encode(json.dumps(last_evaluated_key).encode()).decode()
+            next_token = base64.b64encode(
+                json.dumps(last_evaluated_key).encode()
+            ).decode()
 
         bookings = result["Items"]
 
         return PaginatedItems[Booking](
             items=[Booking(**booking) for booking in bookings],
-            next=next,
+            next=next_token,
         )
 
     return _get_bookings_for_user

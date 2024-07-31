@@ -1,4 +1,4 @@
-from typing import Annotated, Protocol
+from typing import Annotated, Optional, Protocol
 
 from fastapi import Depends
 
@@ -8,13 +8,15 @@ from app.schemas.booking import Booking, BookingsForBike, GetBookingsForBikeQuer
 
 
 class GetBookingsForBikeUseCase(Protocol):
-    def __call__(self, query: GetBookingsForBikeQuery) -> BookingsForBike: ...
+    def __call__(self, query: GetBookingsForBikeQuery) -> Optional[BookingsForBike]: ...
 
 
 def get_bookings_for_bike(
     dynamodb_resource: DynamoDBResourceDependency,
-) -> GetBookingsForBikeUseCase:
-    async def _get_bookings_for_bike(query: GetBookingsForBikeQuery) -> BookingsForBike:
+):
+    async def _get_bookings_for_bike(
+        query: GetBookingsForBikeQuery,
+    ) -> Optional[BookingsForBike]:
         table = dynamodb_resource.Table("booking")
 
         pk_value = f"BIKE#{query.bike_id}"

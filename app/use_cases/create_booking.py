@@ -6,16 +6,16 @@ from fastapi import Depends
 from app.exceptions.booking_exceptions import CreateBookingException
 from app.libs.aws import DynamoDBResourceDependency
 from app.schemas.bike import GetAvailableBikesQuery
-from app.schemas.booking import Booking
+from app.schemas.booking import Booking, CreateBookingCommand
 
 
 class CreateBookingUseCase(Protocol):
-    def __call__(self, CreateBookingCommand) -> Booking: ...
+    def __call__(self, command: CreateBookingCommand) -> Booking: ...
 
 
 def create_booking(
     dynamodb_resource: DynamoDBResourceDependency,
-) -> CreateBookingUseCase:
+):
     async def _create_booking(
         command: GetAvailableBikesQuery,
     ) -> Booking:

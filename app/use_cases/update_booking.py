@@ -8,13 +8,13 @@ from app.use_cases.get_booking_detail import GetBookingDetailDependency
 
 
 class UpdateBookingUseCase(Protocol):
-    def __call__(self, UpdateBookingCommand) -> None: ...
+    def __call__(self, command: UpdateBookingCommand) -> Optional[Booking]: ...
 
 
 def update_booking(
     dynamodb_resource: DynamoDBResourceDependency,
     get_booking_use_case: GetBookingDetailDependency,
-) -> UpdateBookingUseCase:
+):
     async def _update_booking(
         command: UpdateBookingCommand,
     ) -> Optional[Booking]:
