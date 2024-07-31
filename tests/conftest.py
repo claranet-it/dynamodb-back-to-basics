@@ -56,7 +56,9 @@ def delete_booking_command():
 
 @pytest.fixture(scope="function")
 def get_available_bikes_query():
-    def _get_available_bikes_query() -> GetAvailableBikesQuery:
-        return GetAvailableBikesQuery()
+    def _get_available_bikes_query(start: str = None) -> GetAvailableBikesQuery:
+        return GetAvailableBikesQuery(
+            start=start
+        )
 
     return _get_available_bikes_query
